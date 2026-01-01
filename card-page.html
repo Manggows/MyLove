@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cozy Cards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #fef5f0, #f5e6d3);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        color: #5d4a2c;
+      }
+
+      /* Navigation Tabs */
+      .nav-container {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-btn {
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid #e8d0b8;
+        color: #d7a87f;
+        padding: 12px 28px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(215, 168, 127, 0.1);
+      }
+
+      .nav-btn:hover {
+        background: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(215, 168, 127, 0.2);
+        border-color: #d7a87f;
+      }
+
+      .nav-btn.active {
+        background: white;
+        color: #d7a87f;
+        border-color: #d7a87f;
+        box-shadow: 0 8px 20px rgba(215, 168, 127, 0.3);
+      }
+
+      /* Main Content */
+      .container {
+        width: 100%;
+        max-width: 600px;
+      }
+
+      /* Card Styles */
+      .card {
+        background: white;
+        border-radius: 24px;
+        padding: 50px 40px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+        display: none;
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .card.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Headline */
+      .card h2 {
+        font-family: "Lora", serif;
+        font-size: 42px;
+        font-weight: 600;
+        color: #d7a87f;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+
+      .card-subtitle {
+        text-align: center;
+        color: #a8956a;
+        font-size: 14px;
+        margin-bottom: 35px;
+        font-weight: 400;
+      }
+
+      /* List Items */
+      .card-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .card-item {
+        background: #fef5f0;
+        padding: 18px 20px;
+        border-radius: 14px;
+        border-left: 4px solid #d7a87f;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .card-item:hover {
+        background: #fef9f5;
+        transform: translateX(6px);
+        box-shadow: 0 6px 16px rgba(215, 168, 127, 0.15);
+        border-left: 4px solid #d7a87f;
+      }
+
+      .card-item p {
+        color: #5d4a2c;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .card-item-emoji {
+        font-size: 20px;
+        margin-right: 12px;
+      }
+
+      /* Decorative Elements */
+      .decoration {
+        position: fixed;
+        opacity: 0.15;
+        font-size: 60px;
+        pointer-events: none;
+      }
+
+      .decoration.heart1 {
+        top: 10%;
+        left: 5%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .decoration.heart2 {
+        bottom: 20%;
+        right: 5%;
+        animation: float 8s ease-in-out infinite 1s;
+      }
+
+      .decoration.heart3 {
+        top: 50%;
+        left: 2%;
+        animation: float 7s ease-in-out infinite 2s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Countdown Card */
+      .countdown-card {
+        background: linear-gradient(135deg, #fff5f0, #fef9f5);
+        border: 2px solid #e8d0b8;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 40px;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(215, 168, 127, 0.12);
+      }
+
+      .countdown-label {
+        font-family: "Lora", serif;
+        font-size: 18px;
+        color: #d7a87f;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+
+      .countdown-number {
+        font-size: 56px;
+        font-weight: 700;
+        color: #d7a87f;
+        line-height: 1;
+        margin: 10px 0;
+      }
+
+      .countdown-text {
+        color: #a8956a;
+        font-size: 16px;
+        margin-top: 12px;
+      }
+
+      /* Song Description */
+      .song-description {
+        font-size: 13px;
+        color: #a8956a;
+        font-style: italic;
+        margin-top: 6px;
+        display: block;
+      }
+
+      /* Daily Love Note */
+      .love-note-card {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        max-width: 280px;
+        box-shadow: 0 12px 36px rgba(215, 168, 127, 0.2);
+        z-index: 50;
+        border-left: 4px solid #d7a87f;
+        animation: slideIn 0.5s ease forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(350px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .love-note-emoji {
+        font-size: 24px;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .love-note-text {
+        font-size: 14px;
+        color: #5d4a2c;
+        line-height: 1.6;
+        font-weight: 500;
+      }
+
+      .love-note-close {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: #d7a87f;
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .love-note-close:hover {
+        transform: scale(1.2);
+      }
+
+      /* Time Zone Display */
+      .timezone-card {
+        background: linear-gradient(135deg, #fff5f0, #fef9f5);
+        border: 2px solid #e8d0b8;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: 0 8px 24px rgba(215, 168, 127, 0.12);
+      }
+
+      .timezone-item {
+        text-align: center;
+      }
+
+      .timezone-label {
+        font-size: 12px;
+        color: #a8956a;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .timezone-time {
+        font-size: 28px;
+        font-weight: 700;
+        color: #d7a87f;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .timezone-city {
+        font-size: 13px;
+        color: #5d4a2c;
+        margin-top: 6px;
+      }
+
+      /* Open When Letters */
+      .open-when-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .open-when-letter {
+        background: #fef5f0;
+        border-left: 4px solid #d7a87f;
+        border-radius: 14px;
+        padding: 18px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        max-height: 60px;
+        overflow: hidden;
+      }
+
+      .open-when-letter.expanded {
+        max-height: 500px;
+        background: #fff8f3;
+        box-shadow: 0 6px 20px rgba(215, 168, 127, 0.15);
+      }
+
+      .open-when-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: #5d4a2c;
+        cursor: pointer;
+      }
+
+      .open-when-emoji {
+        font-size: 20px;
+        margin-right: 12px;
+      }
+
+      .open-when-toggle {
+        font-size: 16px;
+        color: #d7a87f;
+        transition: transform 0.3s;
+      }
+
+      .open-when-letter.expanded .open-when-toggle {
+        transform: rotate(180deg);
+      }
+
+      .open-when-content {
+        margin-top: 14px;
+        color: #5d4a2c;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      /* Night Mode */
+      body.night-mode {
+        background: linear-gradient(135deg, #3d2817, #2d1f10);
+        color: #f5e6d3;
+      }
+
+      body.night-mode .card {
+        background: #4a3520;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      body.night-mode .card h2 {
+        color: #e8b896;
+      }
+
+      body.night-mode .card-subtitle {
+        color: #c9a877;
+      }
+
+      body.night-mode .card-item {
+        background: #5d4635;
+        color: #f5e6d3;
+        border-left-color: #e8b896;
+      }
+
+      body.night-mode .card-item:hover {
+        background: #6b5041;
+      }
+
+      body.night-mode .card-item p {
+        color: #f5e6d3;
+      }
+
+      body.night-mode .countdown-card {
+        background: linear-gradient(135deg, #5d4635, #4a3520);
+        border-color: #7a5f47;
+      }
+
+      body.night-mode .countdown-label,
+      body.night-mode .countdown-number {
+        color: #e8b896;
+      }
+
+      body.night-mode .countdown-text {
+        color: #c9a877;
+      }
+
+      body.night-mode .timezone-card {
+        background: linear-gradient(135deg, #5d4635, #4a3520);
+        border-color: #7a5f47;
+      }
+
+      body.night-mode .timezone-label {
+        color: #c9a877;
+      }
+
+      body.night-mode .timezone-time {
+        color: #e8b896;
+      }
+
+      body.night-mode .timezone-city {
+        color: #f5e6d3;
+      }
+
+      body.night-mode .open-when-letter {
+        background: #5d4635;
+        color: #f5e6d3;
+      }
+
+      body.night-mode .open-when-letter.expanded {
+        background: #6b5041;
+      }
+
+      body.night-mode .open-when-header,
+      body.night-mode .open-when-content {
+        color: #f5e6d3;
+      }
+
+      body.night-mode .open-when-toggle,
+      body.night-mode .open-when-emoji {
+        color: #e8b896;
+      }
+
+      body.night-mode .love-note-card {
+        background: #4a3520;
+        border-left-color: #e8b896;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+      }
+
+      body.night-mode .love-note-text {
+        color: #f5e6d3;
+      }
+
+      body.night-mode .love-note-close {
+        color: #e8b896;
+      }
+
+      body.night-mode .nav-btn {
+        background: rgba(90, 70, 50, 0.6);
+        border-color: #7a5f47;
+        color: #e8b896;
+      }
+
+      body.night-mode .nav-btn:hover {
+        background: #4a3520;
+        border-color: #e8b896;
+      }
+
+      body.night-mode .nav-btn.active {
+        background: #4a3520;
+        color: #e8b896;
+        border-color: #e8b896;
+      }
+
+      .corner-photo:hover {
+        transform: scale(1.05);
+      }
+
+      body.night-mode .corner-photo {
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      }
+
+      @media (max-width: 768px) {
+        .corner-photo {
+          width: 140px;
+          bottom: 15px;
+          right: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .corner-photo {
+          width: 100px;
+          bottom: 12px;
+          right: 12px;
+        }
+      }
+
+      /* Night Mode Toggle Button */
+      .night-mode-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        border: 2px solid #e8d0b8;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 24px;
+        box-shadow: 0 4px 12px rgba(215, 168, 127, 0.2);
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .night-mode-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(215, 168, 127, 0.3);
+      }
+
+      body.night-mode .night-mode-toggle {
+        background: #4a3520;
+        border-color: #7a5f47;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .countdown-card {
+          margin-bottom: 30px;
+          padding: 25px;
+        }
+
+        .countdown-number {
+          font-size: 42px;
+        }
+
+        .love-note-card {
+          bottom: 20px;
+          right: 20px;
+          max-width: 250px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .countdown-card {
+          padding: 20px;
+        }
+
+        .countdown-number {
+          font-size: 36px;
+        }
+
+        .countdown-label {
+          font-size: 16px;
+        }
+
+        .love-note-card {
+          bottom: 16px;
+          right: 16px;
+          max-width: 220px;
+          padding: 16px;
+        }
+
+        .love-note-text {
+          font-size: 13px;
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 30px 16px;
+        }
+
+        .card {
+          padding: 35px 25px;
+          border-radius: 20px;
+        }
+
+        .card h2 {
+          font-size: 32px;
+        }
+
+        .nav-btn {
+          padding: 10px 20px;
+          font-size: 13px;
+        }
+
+        .card-item {
+          padding: 15px 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 25px 12px;
+        }
+
+        .card {
+          padding: 30px 20px;
+          border-radius: 16px;
+        }
+
+        .card h2 {
+          font-size: 28px;
+        }
+
+        .nav-container {
+          gap: 10px;
+        }
+
+        .nav-btn {
+          padding: 8px 16px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Night Mode Toggle -->
+    <button
+      class="night-mode-toggle"
+      onclick="toggleNightMode()"
+      title="Toggle Night Mode"
+    >
+      🌙
+    </button>
+
+    <!-- Decorative Elements -->
+    <div class="decoration heart1">❤️</div>
+    <div class="decoration heart2">💕</div>
+    <div class="decoration heart3">💗</div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+      <button class="nav-btn active" data-tab="love-letter">
+        ❤️ Love Letter
+      </button>
+      <button class="nav-btn" data-tab="music">🎵 Music</button>
+      <button class="nav-btn" data-tab="notes">📝 Notes</button>
+      <button class="nav-btn" data-tab="open-when">💌 Open When</button>
+      <button class="nav-btn" data-tab="gallery">🌷 Gallery</button>
+    </nav>
+
+    <!-- Time Zone Display -->
+    <div class="timezone-card">
+      <div class="timezone-item">
+        <div class="timezone-label">Your Time</div>
+        <div class="timezone-time" id="timezone-you">00:00</div>
+        <div class="timezone-city">Your City</div>
+      </div>
+      <div style="font-size: 28px; color: #d7a87f">💕</div>
+      <div class="timezone-item">
+        <div class="timezone-label">Their Time</div>
+        <div class="timezone-time" id="timezone-them">00:00</div>
+        <div class="timezone-city">Their City</div>
+      </div>
+    </div>
+
+    <!-- Countdown Card -->
+    <div class="countdown-card">
+      <div class="countdown-label">Only</div>
+      <div class="countdown-number" id="countdown-days">45</div>
+      <div class="countdown-text">days until I see you 💕</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Love Letter Card -->
+      <div class="card active" id="love-letter">
+        <h2>My Dearest</h2>
+        <p class="card-subtitle">A letter written with love</p>
+        <div class="card-list">
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">✨</span>Every moment with you is a
+              treasured memory
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">💫</span>Your smile brightens even
+              my darkest days
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🌟</span>I cherish the way you laugh
+              and dream
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">💝</span>Forever grateful for your
+              love and presence
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🌹</span>My heart belongs to you,
+              always
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music Card -->
+      <div class="card" id="music">
+        <h2>Love Songs</h2>
+        <p class="card-subtitle">Songs that remind me of you</p>
+        <div class="card-list">
+          <div class="card-item">
+            <p><span class="card-item-emoji">🎶</span>Perfect - Ed Sheeran</p>
+            <span class="song-description"
+              >Play this when you're my favorite person in the world</span
+            >
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🎵</span>All of Me - John Legend
+            </p>
+            <span class="song-description"
+              >Because you have all of my heart, no matter the distance</span
+            >
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🎼</span>Thinking Out Loud - Ed
+              Sheeran
+            </p>
+            <span class="song-description"
+              >I listen to this when I miss you most</span
+            >
+          </div>
+          <div class="card-item">
+            <p><span class="card-item-emoji">🎹</span>Golden - Harry Styles</p>
+            <span class="song-description"
+              >For every golden moment we've shared together</span
+            >
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🎸</span>Someone You Loved - Lewis
+              Capaldi
+            </p>
+            <span class="song-description"
+              >Play this and know that I'm thinking of you</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Card -->
+      <div class="card" id="notes">
+        <h2>Reminders</h2>
+        <p class="card-subtitle">Little things to remember</p>
+        <div class="card-list">
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">☀️</span>Take care of yourself
+              always
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🍽️</span>Eat on time and stay
+              healthy
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">😴</span>Get enough rest and sleep
+              well
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🤗</span>You're stronger than you
+              think
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">💪</span>I'm always here for you
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open When Card -->
+      <div class="card" id="open-when">
+        <h2>Open When...</h2>
+        <p class="card-subtitle">Letters for different moments</p>
+        <div class="open-when-container">
+          <div class="open-when-letter" onclick="toggleOpenWhen(this)">
+            <div class="open-when-header">
+              <span
+                ><span class="open-when-emoji">😢</span>Open when you miss
+                me</span
+              >
+              <span class="open-when-toggle">▼</span>
+            </div>
+            <div class="open-when-content">
+              I know the distance is hard, but remember - every moment apart is
+              just bringing us closer to the next hug. I miss your laugh, your
+              warmth, the way you make everything feel right. Until we meet,
+              carry my love with you. You're in my heart every single day. 💕
+            </div>
+          </div>
+          <div class="open-when-letter" onclick="toggleOpenWhen(this)">
+            <div class="open-when-header">
+              <span
+                ><span class="open-when-emoji">😴</span>Open when you can't
+                sleep</span
+              >
+              <span class="open-when-toggle">▼</span>
+            </div>
+            <div class="open-when-content">
+              On those restless nights when your mind won't quiet down, know
+              that I'm thinking of you too. Maybe we're both awake under the
+              same moon. Close your eyes and imagine me there - telling you
+              silly stories until you drift away. Sleep well, my love. 🌙
+            </div>
+          </div>
+          <div class="open-when-letter" onclick="toggleOpenWhen(this)">
+            <div class="open-when-header">
+              <span
+                ><span class="open-when-emoji">😢</span>Open when you feel
+                sad</span
+              >
+              <span class="open-when-toggle">▼</span>
+            </div>
+            <div class="open-when-content">
+              It's okay to have hard days. But remember - you're braver than you
+              believe, stronger than you seem, and loved more than you know. I'm
+              always here, ready to listen, support, and remind you that this
+              sadness is temporary. You're going to be okay. We're going to be
+              okay. 🤍
+            </div>
+          </div>
+          <div class="open-when-letter" onclick="toggleOpenWhen(this)">
+            <div class="open-when-header">
+              <span
+                ><span class="open-when-emoji">😊</span>Open when you feel
+                happy</span
+              >
+              <span class="open-when-toggle">▼</span>
+            </div>
+            <div class="open-when-content">
+              I love seeing you happy! Your joy is contagious and brightens my
+              world even from far away. Share these moments with me. Tell me
+              everything about what made your day special. Let's celebrate
+              life's little victories together. You deserve all the happiness in
+              the world. ✨
+            </div>
+          </div>
+          <div class="open-when-letter" onclick="toggleOpenWhen(this)">
+            <div class="open-when-header">
+              <span
+                ><span class="open-when-emoji">💪</span>Open when you doubt
+                us</span
+              >
+              <span class="open-when-toggle">▼</span>
+            </div>
+            <div class="open-when-content">
+              Distance is a test, not a reason to give up. What we have is real,
+              it's strong, and it's worth every challenge. I choose you every
+              single day, and I'll keep choosing you. Our love transcends time
+              zones and miles. Believe in us. I do. Always. 💫
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Card -->
+      <div class="card" id="gallery">
+        <h2>Favorites</h2>
+        <p class="card-subtitle">Beautiful things I adore</p>
+        <div class="card-list">
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🌸</span>Pink flowers in spring
+              gardens
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🌅</span>Golden hour sunsets and
+              sunrises
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">✨</span>Starry nights and quiet
+              moments
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">🌈</span>Rainbows after the storm
+            </p>
+          </div>
+          <div class="card-item">
+            <p>
+              <span class="card-item-emoji">💐</span>Bouquets filled with love
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Love Note -->
+    <div class="love-note-card" id="love-note">
+      <button class="love-note-close" onclick="closeLoveNote()">✕</button>
+      <span class="love-note-emoji" id="love-note-emoji">💌</span>
+      <p class="love-note-text" id="love-note-text">Loading...</p>
+    </div>
+
+    <script>
+      // Love notes data
+      const loveNotes = [
+        { text: "No matter the distance, you're my home. 🏡", emoji: "🏡" },
+        { text: "I hope today is gentle to you. 🤍", emoji: "🤍" },
+        { text: "You make the wait worth it. ⏳", emoji: "⏳" },
+        { text: "Thinking of you right now. 💭", emoji: "💭" },
+        {
+          text: "Distance means so little when someone means so much. 💕",
+          emoji: "💕",
+        },
+        {
+          text: "You're my favorite hello and my hardest goodbye. 👋",
+          emoji: "👋",
+        },
+        {
+          text: "Counting down the days until your smile is right in front of me. 😊",
+          emoji: "😊",
+        },
+        {
+          text: "Time zones can't change how much I love you. 🌍",
+          emoji: "🌍",
+        },
+        { text: "Every moment with you is a treasure. 💎", emoji: "💎" },
+        { text: "You're worth every mile between us. 🛤️", emoji: "🛤️" },
+      ];
+
+      // Time zone configuration (update with your actual time zones)
+      const yourTimezone = "America/New_York"; // Your timezone (update this)
+      const theirTimezone = "America/Los_Angeles"; // Their timezone (update this)
+      const yourCityName = "Your City"; // Your city name (update this)
+      const theirCityName = "Their City"; // Their city name (update this)
+
+      // Countdown function
+      function updateCountdown() {
+        // Set your next meeting date here (format: YYYY-MM-DD)
+        const meetingDate = new Date("2025-02-15").getTime();
+        const now = new Date().getTime();
+        const distance = meetingDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+
+        const countdownEl = document.getElementById("countdown-days");
+        if (countdownEl) {
+          if (days > 0) {
+            countdownEl.textContent = days;
+          } else if (hours > 0) {
+            countdownEl.textContent = hours;
+            document.querySelector(".countdown-text").textContent =
+              "hours until I see you 💕";
+          } else {
+            countdownEl.textContent = "Today!";
+            document.querySelector(".countdown-text").textContent =
+              "See you soon! 🎉";
+          }
+        }
+      }
+
+      // Time zone display function
+      function updateTimezones() {
+        const youEl = document.getElementById("timezone-you");
+        const themEl = document.getElementById("timezone-them");
+        const youCityEl = document.querySelector(
+          ".timezone-item:nth-child(1) .timezone-city"
+        );
+        const themCityEl = document.querySelector(
+          ".timezone-item:nth-child(3) .timezone-city"
+        );
+
+        // Get current time in both zones
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: yourTimezone,
+        });
+        const formatterThem = new Intl.DateTimeFormat("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: theirTimezone,
+        });
+
+        youEl.textContent = formatter.format(new Date());
+        themEl.textContent = formatterThem.format(new Date());
+        youCityEl.textContent = yourCityName;
+        themCityEl.textContent = theirCityName;
+      }
+
+      // Daily love note function
+      function showDailyLoveNote() {
+        const today = new Date();
+        const dayOfYear = Math.floor(
+          (today - new Date(today.getFullYear(), 0, 0)) / 86400000
+        );
+        const noteIndex = dayOfYear % loveNotes.length;
+        const note = loveNotes[noteIndex];
+
+        document.getElementById("love-note-emoji").textContent = note.emoji;
+        document.getElementById("love-note-text").textContent = note.text;
+      }
+
+      // Close love note function
+      function closeLoveNote() {
+        const loveNote = document.getElementById("love-note");
+        loveNote.style.animation = "slideIn 0.5s ease reverse forwards";
+        setTimeout(() => {
+          loveNote.style.display = "none";
+        }, 500);
+      }
+
+      // Toggle open when letters
+      function toggleOpenWhen(element) {
+        element.classList.toggle("expanded");
+      }
+
+      // Night mode toggle
+      function toggleNightMode() {
+        document.body.classList.toggle("night-mode");
+        localStorage.setItem(
+          "nightMode",
+          document.body.classList.contains("night-mode")
+        );
+      }
+
+      // Navigation
+      document.addEventListener("DOMContentLoaded", function () {
+        const navButtons = document.querySelectorAll(".nav-btn");
+        const cards = document.querySelectorAll(".card");
+
+        navButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const tabId = this.getAttribute("data-tab");
+
+            // Remove active class from all buttons and cards
+            navButtons.forEach((b) => b.classList.remove("active"));
+            cards.forEach((c) => c.classList.remove("active"));
+
+            // Add active class to clicked button and corresponding card
+            this.classList.add("active");
+            document.getElementById(tabId).classList.add("active");
+          });
+        });
+
+        // Initialize countdown, love note, and timezones
+        updateCountdown();
+        showDailyLoveNote();
+        updateTimezones();
+
+        // Update timezones every minute
+        setInterval(updateTimezones, 60000);
+
+        // Load night mode preference
+        if (localStorage.getItem("nightMode") === "true") {
+          document.body.classList.add("night-mode");
+        }
+      });
+    </script>
+  </body>
+</html>

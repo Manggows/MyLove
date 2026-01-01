@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Love</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #f0dcc8, #d7a87f);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+        color: #5d4a2c;
+      }
+
+      /* Password Modal */
+      .password-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      /* Love Confirmation Modal */
+      .love-confirmation-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .love-confirmation-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .love-confirmation-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 30px;
+        color: #d7a87f;
+        animation: pulse 2s infinite;
+      }
+
+      .confirmation-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .yes-btn,
+      .no-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .yes-btn:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      .no-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+      }
+
+      .no-btn:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      /* Don't Be Mad Modal */
+      .dont-be-mad-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .dont-be-mad-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .dont-be-mad-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 30px;
+        color: #d7a87f;
+        animation: pulse 2s infinite;
+      }
+
+      .okay-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .okay-btn:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      .no-thanks-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+        margin-left: 10px;
+      }
+
+      .no-thanks-btn:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      /* Promise Modal */
+      .promise-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .promise-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .promise-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 30px;
+        color: #d7a87f;
+        animation: pulse 2s infinite;
+      }
+
+      .promise-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .promise-btn:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      /* Quiz Modal */
+      .quiz-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .quiz-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .quiz-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 38px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 30px;
+        color: #d7a87f;
+      }
+
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .quiz-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .quiz-btn:hover {
+        background: #fef4e8;
+        transform: translateX(5px);
+      }
+
+      .quiz-btn.correct {
+        border-color: #4caf50;
+      }
+
+      .password-content {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 450px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .password-character {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .password-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 10px;
+        color: #d7a87f;
+        letter-spacing: 1px;
+      }
+
+      .password-question {
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        color: #5d4a2c;
+        margin-bottom: 30px;
+        line-height: 1.5;
+      }
+
+      .password-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .password-yes-btn,
+      .password-no-btn {
+        padding: 12px 40px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+        font-style: italic;
+        transition: all 0.3s;
+        border: 2px solid #d7a87f;
+        font-family: "Poppins", sans-serif;
+        background: white;
+        color: #d7a87f;
+      }
+
+      .password-yes-btn:hover {
+        background: #fef4e8;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(215, 168, 127, 0.2);
+      }
+
+      .password-no-btn {
+        background: white;
+        color: #d7a87f;
+      }
+
+      .password-no-btn:hover {
+        background: #fef4e8;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(215, 168, 127, 0.2);
+      }
+
+      /* Welcome Screen */
+      .welcome-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        opacity: 1;
+        transition: opacity 0.8s ease;
+      }
+
+      .welcome-message {
+        font-family: "Poppins", sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        font-style: italic;
+        color: #d7a87f;
+        text-align: center;
+        animation: pulse 2s infinite, float 3s ease-in-out infinite;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Gift Box Modal */
+      .gift-box-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 98;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .gift-box-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .gift-box-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #d7a87f;
+      }
+
+      .gift-box-emoji {
+        font-size: 80px;
+        margin: 20px 0;
+        animation: bounce 1s infinite;
+      }
+
+      .gift-box-text {
+        font-size: 18px;
+        color: #5d4a2c;
+        margin-bottom: 30px;
+      }
+
+      .gift-box-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* Gift Pop Animation */
+      @keyframes popGift {
+        0% {
+          transform: scale(0.5) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.2) rotate(10deg);
+        }
+        100% {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+        }
+      }
+
+      @keyframes confetti {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-400px) translateX(100px) rotate(720deg) scale(0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes confettiLeft {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-400px) translateX(-100px) rotate(-720deg) scale(0);
+          opacity: 0;
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        font-size: 40px;
+        pointer-events: none;
+        z-index: 200;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Fun Question Modal */
+      .fun-question-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 98;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .fun-question-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .fun-question-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #d7a87f;
+      }
+
+      .fun-timer {
+        font-size: 48px;
+        font-weight: 700;
+        color: #d7a87f;
+        margin: 20px 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .fun-timer-label {
+        font-size: 14px;
+        color: #a8956a;
+        margin-bottom: 20px;
+      }
+
+      .fun-question-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* Main Content */
+      .container {
+        width: 100%;
+        max-width: 900px;
+        padding: 20px;
+        margin-top: 50px;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        background: rgba(255, 255, 255, 0.7);
+        border: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+        font-style: italic;
+        color: #d7a87f;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .tab:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-3px);
+      }
+
+      .tab.active {
+        background: white;
+        color: #d7a87f;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .content-area {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        min-height: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .content-area h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        font-style: italic;
+        color: #d7a87f;
+        margin-bottom: 30px;
+      }
+
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Love Letter Tab */
+      .letter {
+        padding: 20px;
+        background: #fef4e8;
+        border-radius: 15px;
+        border: 2px dashed #e8d0b8;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .letter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .letter h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        font-style: italic;
+        color: #d7a87f;
+      }
+
+      .letter-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+      }
+
+      .letter.expanded .letter-content {
+        max-height: 500px;
+      }
+
+      /* Lower Right Sticker */
+      .lower-right-sticker {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        z-index: 10;
+        max-width: 300px;
+        width: 300px;
+        opacity: 0.9;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+      }
+
+      .tab-content {
+        position: relative;
+        min-height: 500px;
+      }
+
+      #gallery h2 {
+        font-size: 28px !important;
+      }
+
+      @media (max-width: 768px) {
+        .lower-right-sticker {
+          max-width: 180px;
+          width: 180px;
+          bottom: 10px;
+          right: 10px;
+        }
+      }
+
+      /* Music Tab */
+      .song {
+        background: #fef4e8;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .song:hover {
+        background: #e8d0b8;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(139, 90, 125, 0.2);
+      }
+
+      .song-icon {
+        font-size: 24px;
+        color: #d7a87f;
+        transition: transform 0.3s ease;
+      }
+
+      .song:hover .song-icon {
+        transform: scale(1.2);
+      }
+
+      .song-info h4 {
+        font-size: 18px;
+        margin-bottom: 5px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        color: #d7a87f;
+      }
+
+      .song-info p {
+        color: #8b7355;
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Song Player */
+      .song-player {
+        margin-bottom: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(215, 168, 127, 0.2);
+        animation: fadeIn 0.3s ease;
+      }
+
+      /* Notes Tab */
+      .note {
+        background: #fef4e8;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border-left: 4px solid #d7a87f;
+      }
+
+      /* Gallery Tab */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .gallery-item {
+        border-radius: 10px;
+        overflow: hidden;
+        height: 350px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Videos Gallery */
+      .videos-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .video-item {
+        border-radius: 10px;
+        overflow: hidden;
+        height: 350px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        background: #f0f0f0;
+      }
+
+      .video-item:hover {
+        transform: scale(1.05);
+      }
+
+      /* Games Tab */
+      .game-section {
+        padding: 20px;
+        background: #fef4e8;
+        border-radius: 15px;
+        margin-bottom: 20px;
+      }
+
+      .game-section h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        font-style: italic;
+        color: #d7a87f;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .game-question {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        user-select: none;
+      }
+
+      .game-question:hover {
+        color: #d7a87f;
+        transform: scale(1.05);
+      }
+
+      .game-answers {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+      }
+
+      .game-answers.expanded {
+        max-height: 1000px;
+      }
+
+      .game-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .game-answer-box {
+        background: #fef4e8;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        border-left: 4px solid #d7a87f;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .game-answer-box:hover {
+        background: #e8d0b8;
+        transform: translateX(5px);
+      }
+
+      .game-answer-box p {
+        margin: 0;
+        color: #5d4a2c;
+        font-weight: 600;
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .color-indicator {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .game-answer-box {
+        display: flex;
+        align-items: center;
+      }
+
+      .game-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 15px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .game-btn:hover {
+        background: #fef4e8;
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(215, 168, 127, 0.3);
+      }
+
+      .game-btn.correct-ans {
+        border-color: #4caf50;
+      }
+
+      /* Decorative Elements */
+      .heart,
+      .teddy-bear {
+        position: absolute;
+        z-index: -1;
+        opacity: 0.2;
+        pointer-events: none;
+      }
+
+      .heart {
+        color: #d7a87f;
+        font-size: 24px;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .teddy-bear {
+        font-size: 32px;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      /* Animations */
+      @keyframes bounceIn {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      /* Result Popup Modal */
+      .result-popup {
+        position: relative;
+        margin-top: 20px;
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(216, 27, 96, 0.2);
+        text-align: center;
+        display: none;
+        animation: popupAppear 0.6s ease-out forwards;
+      }
+
+      @keyframes popupAppear {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .result-popup-overlay {
+        display: none;
+      }
+
+      .result-popup-emoji {
+        font-size: 60px;
+        margin: 10px 0;
+        animation: bounce 0.6s ease-in-out;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .result-popup-message {
+        font-size: 20px;
+        font-weight: 700;
+        color: #d7a87f;
+        margin: 10px 0;
+        font-family: "Poppins", sans-serif;
+        font-style: italic;
+      }
+
+      .result-popup-message.correct {
+        color: #4caf50;
+      }
+
+      /* Game Retry Modal */
+      .game-retry-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .game-retry-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .game-retry-emoji {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: bounce 0.6s ease-in-out infinite;
+      }
+
+      .game-retry-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 30px;
+        color: #d7a87f;
+      }
+
+      .game-retry-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .game-retry-yes,
+      .game-retry-no {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .game-retry-yes:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      .game-retry-no {
+        background: white;
+      }
+
+      .game-retry-no:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      /* Game Success Modal */
+      .game-success-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0dcc8, #e8d0b8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .game-success-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        animation: bounceIn 1s forwards;
+      }
+
+      .game-success-emoji {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: bounce 0.6s ease-in-out infinite;
+      }
+
+      .game-success-content h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 20px;
+        color: #d7a87f;
+      }
+
+      .game-success-message {
+        font-size: 18px;
+        color: #d7a87f;
+        margin-bottom: 30px;
+        font-weight: 500;
+      }
+
+      .game-success-btn {
+        background: white;
+        color: #d7a87f;
+        border: 2px solid #d7a87f;
+        padding: 12px 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .game-success-btn:hover {
+        background: #fef4e8;
+        transform: scale(1.05);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .welcome-message {
+          font-size: 36px;
+        }
+
+        .tabs {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .tab {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Password Modal -->
+    <div class="password-modal" id="passwordModal">
+      <div class="password-content">
+        <img src="https://i.pinimg.com/originals/5d/94/26/5d942674089d3a885ac784393449c625.gif" alt="Cute cats" style="width: 150px; height: 150px; border-radius: 15px; margin-bottom: 15px; object-fit: cover;" />
+        <h2>Hello MY Love!</h2>
+        <p class="password-question">You want to see something special? 💝</p>
+        <div class="password-buttons">
+          <button class="password-yes-btn" id="passwordYesBtn">
+            YES PLEASE
+          </button>
+          <button class="password-no-btn" id="passwordNoBtn">NO THANKS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Try Again Modal -->
+    <div class="game-retry-modal" id="gameRetryModal" style="display: none">
+      <div class="game-retry-content">
+        <div class="game-retry-emoji">🧸😢</div>
+        <h2>Wanna try again?</h2>
+        <div class="game-retry-buttons">
+          <button class="game-retry-yes" id="gameRetryYes">Yes</button>
+          <button class="game-retry-no" id="gameRetryNo">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Success Modal -->
+    <div class="game-success-modal" id="gameSuccessModal" style="display: none">
+      <div class="game-success-content">
+        <div class="game-success-emoji">🧸</div>
+        <h2>Yehey!</h2>
+        <p class="game-success-message" id="gameSuccessMessage"></p>
+        <button class="game-success-btn" id="gameSuccessBtn">Great! 💕</button>
+      </div>
+    </div>
+
+    <!-- Love Confirmation Modal -->
+    <div
+      class="love-confirmation-modal"
+      id="loveConfirmationModal"
+      style="display: none"
+    >
+      <div class="love-confirmation-content">
+        <img src="https://i.pinimg.com/originals/68/09/5b/68095bdd910e07ece3c7e06b881003e8.gif" alt="Cute love cat" style="width: 150px; height: 150px; border-radius: 15px; margin-bottom: 15px; object-fit: cover;" />
+        <h2>Do you love me? ❤️</h2>
+        <div class="confirmation-buttons">
+          <button class="yes-btn" id="yesBtn">Yes ✨</button>
+          <button class="no-btn" id="noBtn">No 😢</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Don't Be Mad Modal -->
+    <div class="dont-be-mad-modal" id="dontBeMadModal" style="display: none">
+      <div class="dont-be-mad-content">
+        <img src="https://i.pinimg.com/originals/93/e4/e5/93e4e540f3500751660931d2d9c728e0.gif" alt="Cute cat sorry" style="width: 150px; height: 150px; border-radius: 15px; margin-bottom: 15px; object-fit: cover;" />
+        <h2>Please don't be mad? 🥺</h2>
+        <div class="confirmation-buttons">
+          <button class="okay-btn" id="okayBtn">Okay 💕</button>
+          <button class="no-thanks-btn" id="noThanksBtn">No Thanks</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promise Modal -->
+    <div class="promise-modal" id="promiseModal" style="display: none">
+      <div class="promise-content">
+        <img src="https://i.pinimg.com/originals/aa/b8/4c/aab84ccce5af6c61a0e59eea4224b224.gif" alt="Cute cat with coffee" style="width: 150px; height: 150px; border-radius: 15px; margin-bottom: 15px; object-fit: cover;" />
+        <h2>Promise you will like it 💝</h2>
+        <button class="promise-btn" id="promiseBtn">Okay ✨</button>
+      </div>
+    </div>
+
+    <!-- Monthsary Code Modal -->
+    <div class="quiz-modal" id="quizModal" style="display: none">
+      <div class="quiz-content">
+        <img src="https://i.pinimg.com/originals/f5/59/22/f559223b9167b25e92aaff5f5f0d22c2.gif" alt="Cute cat go" style="width: 150px; height: 150px; border-radius: 15px; margin-bottom: 15px; object-fit: cover;" />
+        <h2>But before that you need to type the code 💝</h2>
+        <p style="font-size: 18px; color: #5d4a2c; margin-bottom: 20px">
+          Our Monthsary M-D-Y
+        </p>
+        <input
+          type="text"
+          id="monthsaryInput"
+          placeholder="MM-DD-YY"
+          style="
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #d7a87f;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            color: #d7a87f;
+          "
+        />
+        <button class="quiz-btn" id="monthsarySubmit" style="width: 100%">
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+      <h1 class="welcome-message">Welcome my love, enjoy your stay</h1>
+    </div>
+
+    <!-- Gift Box Modal -->
+    <div class="gift-box-modal" id="giftBoxModal">
+      <div class="gift-box-content">
+        <h2>I have a gift for you! </h2>
+        <div class="gift-box-emoji">🎁</div>
+        <p class="gift-box-text">Do you want to open it?</p>
+        <div class="gift-box-buttons">
+          <button class="yes-btn" onclick="openGift()">YES</button>
+          <button class="no-btn" onclick="closeGiftBox()">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fun Question Modal -->
+    <div class="fun-question-modal" id="funQuestionModal">
+      <div class="fun-question-content">
+        <img src="https://i.pinimg.com/originals/5a/c6/ce/5ac6ce987f9d49df0130895ed7894ceb.gif" alt="Kawaii peach cat" style="width: 150px; height: 150px; border-radius: 15px; margin-bottom: 15px; object-fit: cover;" />
+        <h2>Wanna have some fun? 😉</h2>
+        <div class="fun-timer-label">Game starts in:</div>
+        <div class="fun-timer" id="funTimer">30</div>
+        <div class="fun-question-buttons">
+          <button class="yes-btn" onclick="startFun()">YES</button>
+          <button class="no-btn" onclick="startFun()">Still YES</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="mainContent" style="display: none">
+      <div class="tabs">
+        <button class="tab active" data-tab="love-letter">
+          <span>❤️</span> Love Letter
+        </button>
+        <button class="tab" data-tab="music"><span>🎵</span> Music</button>
+        <button class="tab" data-tab="notes"><span>📝</span> Notes</button>
+        <button class="tab" data-tab="gallery"><span>🌷</span> Gallery</button>
+        <button class="tab" data-tab="games"><span>🎮</span> Games</button>
+      </div>
+
+      <div class="content-area">
+        <!-- Love Letter Tab -->
+        <div class="tab-content active" id="love-letter">
+          <h2>My Babyyy!</h2>
+          <div class="letter" id="loveLetter">
+            <div class="letter-header">
+              <h3>A Letter For You</h3>
+              <span>👇 Click to open</span>
+            </div>
+            <div class="letter-content">
+              <p>My love,</p>
+              <p>
+                Being apart from you isn’t easy. Some days the distance really gets to me, but even then, you’re still the first person I think about when I wake up and the last one before I fall asleep.
+                 No matter how far we are from each other, you’re always with me.
+              </p>
+
+              <p>
+                I just want to say thank you—for always reassuring me, especially when I start to overthink. 
+                Thank you for being so patient with me and for taking care of me in your own little ways. It honestly means a lot when you wait for me before going to bed just to make sure I’m okay. Those small things make me feel so loved.
+              </p>
+
+              <p>
+                I also really appreciate how you let me be part of your life, even from a distance. 
+                It makes me feel close to you and reminds me that we’re really in this together. I miss your voice, your laugh, and the comfort you give me just by being you.
+              </p>
+
+              <p>
+                Long distance is hard, but loving you makes it worth it. Every day apart is one day closer to the moment we finally get to be together again. 
+                I believe in us and in what we’re building, no matter how far apart we are right now.
+              </p>
+
+              <p>
+                Please take care of yourself for me, and take good care of our babies, Kenie and Coda. 
+                Knowing you’re all okay gives me so much peace.
+              </p>
+
+              <p>
+                I can’t wait to see you, to finally be with you without a screen between us.
+                 I’m really looking forward to eating Filipino food with you—especially balut. Just thinking about it makes me excited for all the memories we’ll create together.
+              </p>
+
+               <p>
+                No matter where I am or what I’m doing, my heart is always with you. 
+                I’m so grateful for you and for this love we share.
+               </p>
+
+               <p>
+                Happy 1st Monthsary, baby. Thank you for choosing me and loving me the way you do. I love you always.
+               </p>
+               
+              <p>Forever yours,</p>
+              <p>your baby gurrlll</p>
+            </div>
+          </div>
+        
+        </div>
+        <div class="tab-content" id="games">
+          <h2>Games 🎮</h2>
+
+          <!-- Question 1: Favorite Color -->
+          <div class="game-section">
+            <h3 class="game-question" id="colorQuestion">
+              What is my favorite color? 🎨
+            </h3>
+            <div class="game-answers" id="colorAnswers">
+              <div class="game-answer-box" id="colorAns1">
+                <div
+                  class="color-indicator"
+                  style="background-color: #ff0000"
+                ></div>
+                <p>Red</p>
+              </div>
+              <div class="game-answer-box" id="colorAns2">
+                <div
+                  class="color-indicator"
+                  style="background-color: #0066ff"
+                ></div>
+                <p>Blue</p>
+              </div>
+              <div class="game-answer-box" id="colorAns3">
+                <div
+                  class="color-indicator"
+                  style="background-color: #ff69b4"
+                ></div>
+                <p>Pink</p>
+              </div>
+              <div
+                id="colorResult"
+                style="
+                  margin-top: 20px;
+                  display: none;
+                  font-size: 18px;
+                  font-weight: bold;
+                "
+              ></div>
+              <div class="result-popup-overlay" id="colorPopupOverlay"></div>
+              <div class="result-popup" id="colorPopup">
+                <div class="result-popup-emoji" id="colorPopupEmoji">🧸</div>
+                <div class="result-popup-message" id="colorPopupMessage">
+                  Great!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 2: First Met Date -->
+          <div class="game-section">
+            <h3 class="game-question" id="dateQuestion">
+              What date did you first saw me? 📅
+            </h3>
+            <div class="game-answers" id="dateAnswers">
+              <div class="game-answer-box" id="dateAns1">
+                <p>October 8, 2025</p>
+              </div>
+              <div class="game-answer-box" id="dateAns2">
+                <p>October 10, 2025</p>
+              </div>
+              <div class="game-answer-box" id="dateAns3">
+                <p>October 9, 2025</p>
+              </div>
+              <div
+                id="dateResult"
+                style="
+                  margin-top: 20px;
+                  display: none;
+                  font-size: 18px;
+                  font-weight: bold;
+                "
+              ></div>
+              <div class="result-popup-overlay" id="datePopupOverlay"></div>
+              <div class="result-popup" id="datePopup">
+                <div class="result-popup-emoji" id="datePopupEmoji">🧸</div>
+                <div class="result-popup-message" id="datePopupMessage">
+                  Great!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 3: Birthday Month -->
+          <div class="game-section">
+            <h3 class="game-question" id="monthQuestion">
+              What month is my birthday? 🎂
+            </h3>
+            <div class="game-answers" id="monthAnswers">
+              <div class="game-answer-box" id="monthAns1">
+                <p>August</p>
+              </div>
+              <div class="game-answer-box" id="monthAns2">
+                <p>September</p>
+              </div>
+              <div class="game-answer-box" id="monthAns3">
+                <p>May</p>
+              </div>
+              <div
+                id="monthResult"
+                style="
+                  margin-top: 20px;
+                  display: none;
+                  font-size: 18px;
+                  font-weight: bold;
+                "
+              ></div>
+              <div class="result-popup-overlay" id="monthPopupOverlay"></div>
+              <div class="result-popup" id="monthPopup">
+                <div class="result-popup-emoji" id="monthPopupEmoji">🧸</div>
+                <div class="result-popup-message" id="monthPopupMessage">
+                  Great!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Music Tab -->
+        <div class="tab-content" id="music">
+          <h2>Songs that remind me of you</h2>
+          <div class="song">
+            <div class="song-icon">🎵</div>
+            <div class="song-info">
+              <h4>Love Grows</h4>
+            </div>
+            <audio width="100%" height="50" controls style="width: 100%;">
+              <source src="a1.mp4" type="audio/mp4">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+          <div class="song">
+            <div class="song-icon">🎵</div>
+            <div class="song-info">
+              <h4>Your My Hunny Bunch</h4>
+            </div>
+            <audio width="100%" height="50" controls style="width: 100%;">
+              <source src="a2.mp4" type="audio/mp4">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+
+        <!-- Notes Tab -->
+        <div class="tab-content" id="notes">
+          <h2>Some reminders</h2>
+          <div class="note">
+            <p>Take care always</p>
+          </div>
+          <div class="note">
+            <p>Eat on time</p>
+            </div>
+          <div class="note">
+            <p>Don’t forget I’m always here for you.</p>
+          </div>
+          <div class="note">
+            <p>You're mine.. always</p>
+          </div>
+        </div>
+
+        <!-- Gallery Tab -->
+        <div class="tab-content" id="gallery">
+          <h2>Memories We’re Making</h2>
+          <div class="gallery">
+            <div class="gallery-item">
+              <img
+                src="1.jpeg"
+                alt="1.jpeg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="2.jpg"
+                alt="2.jpg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="3.jpg"
+                alt="3.jpg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="4.jpg"
+                alt="4.jpg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="5.jpg"
+                alt="5.jpg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="6.jpg"
+                alt="6.jpg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="7.jpeg"
+                alt="7.jpeg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="8.jpeg"
+                alt="8.jpeg"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="9.jpeg"
+                alt="9.jpeg"
+              />
+            </div>
+          
+          </div>
+
+          <!-- Videos Section -->
+          <h3 style="margin-top: 50px; margin-bottom: 30px; text-align: center; color: #d7a87f;">Our Special Moments 🎬</h3>
+          <div class="videos-gallery">
+            <div class="video-item">
+              <video width="100%" height="100%" style="object-fit: cover;" controls>
+                <source src="v1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="video-item">
+              <video width="100%" height="100%" style="object-fit: cover;" controls>
+                <source src="v2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="video-item">
+              <video width="100%" height="100%" style="object-fit: cover;" controls>
+                <source src="v3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="heart" style="top: 10%; left: 5%">❤️</div>
+    <div class="heart" style="top: 20%; right: 10%">❤️</div>
+    <div class="heart" style="bottom: 15%; left: 15%">❤️</div>
+    <div class="teddy-bear" style="top: 30%; left: 10%">🧸</div>
+    <div class="teddy-bear" style="bottom: 10%; right: 5%">🧸</div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Password check
+        const passwordModal = document.getElementById("passwordModal");
+        const welcomeScreen = document.getElementById("welcomeScreen");
+        const giftBoxModal = document.getElementById("giftBoxModal");
+        const funQuestionModal = document.getElementById("funQuestionModal");
+        const mainContent = document.getElementById("mainContent");
+        const passwordYesBtn = document.getElementById("passwordYesBtn");
+        const passwordNoBtn = document.getElementById("passwordNoBtn");
+        const loveConfirmationModal = document.getElementById(
+          "loveConfirmationModal"
+        );
+        const dontBeMadModal = document.getElementById("dontBeMadModal");
+        const promiseModal = document.getElementById("promiseModal");
+        const quizModal = document.getElementById("quizModal");
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const okayBtn = document.getElementById("okayBtn");
+        const noThanksBtn = document.getElementById("noThanksBtn");
+        const promiseBtn = document.getElementById("promiseBtn");
+        const quizOption1 = document.getElementById("quizOption1");
+        const quizOption2 = document.getElementById("quizOption2");
+        const quizOption3 = document.getElementById("quizOption3");
+
+        // Password modal buttons
+        passwordYesBtn.addEventListener("click", function () {
+          passwordModal.style.opacity = "0";
+          setTimeout(() => {
+            passwordModal.style.display = "none";
+            const funQuestionModal = document.getElementById("funQuestionModal");
+            funQuestionModal.style.display = "flex";
+            setTimeout(() => {
+              funQuestionModal.style.opacity = "1";
+              startFunTimer();
+            }, 10);
+          }, 500);
+        });
+
+        passwordNoBtn.addEventListener("click", function () {
+          alert("I understand... 💔");
+        });
+
+        // Love confirmation buttons
+        yesBtn.addEventListener("click", function () {
+          loveConfirmationModal.style.opacity = "0";
+          setTimeout(() => {
+            loveConfirmationModal.style.display = "none";
+            dontBeMadModal.style.display = "flex";
+            setTimeout(() => {
+              dontBeMadModal.style.opacity = "1";
+            }, 10);
+          }, 500);
+        });
+
+        noBtn.addEventListener("click", function () {
+          alert("Aww, that breaks my heart... 💔");
+          loveConfirmationModal.style.opacity = "0";
+          setTimeout(() => {
+            loveConfirmationModal.style.display = "none";
+            passwordModal.style.display = "flex";
+            setTimeout(() => {
+              passwordModal.style.opacity = "1";
+            }, 10);
+          }, 500);
+        });
+
+        // Don't Be Mad buttons
+        okayBtn.addEventListener("click", function () {
+          dontBeMadModal.style.opacity = "0";
+          setTimeout(() => {
+            dontBeMadModal.style.display = "none";
+            promiseModal.style.display = "flex";
+            setTimeout(() => {
+              promiseModal.style.opacity = "1";
+            }, 10);
+          }, 500);
+        });
+
+        noThanksBtn.addEventListener("click", function () {
+          alert("It's okay baby 💕");
+          dontBeMadModal.style.opacity = "0";
+          setTimeout(() => {
+            dontBeMadModal.style.display = "none";
+            passwordModal.style.display = "flex";
+            setTimeout(() => {
+              passwordModal.style.opacity = "1";
+            }, 10);
+          }, 500);
+        });
+
+        // Promise button
+        promiseBtn.addEventListener("click", function () {
+          promiseModal.style.opacity = "0";
+          setTimeout(() => {
+            promiseModal.style.display = "none";
+            quizModal.style.display = "flex";
+            setTimeout(() => {
+              quizModal.style.opacity = "1";
+            }, 10);
+          }, 500);
+        });
+
+        // Monthsary code input
+        const monthsaryInput = document.getElementById("monthsaryInput");
+        const monthsarySubmit = document.getElementById("monthsarySubmit");
+        const correctCode = "12-03-25";
+
+        monthsarySubmit.addEventListener("click", function () {
+          const inputValue = monthsaryInput.value.trim();
+          if (inputValue === correctCode) {
+            quizModal.style.opacity = "0";
+            setTimeout(() => {
+              quizModal.style.display = "none";
+              welcomeScreen.style.display = "flex";
+              setTimeout(() => {
+                welcomeScreen.style.opacity = "1";
+              }, 10);
+
+              setTimeout(() => {
+                welcomeScreen.style.opacity = "0";
+                setTimeout(() => {
+                  welcomeScreen.style.display = "none";
+                  mainContent.style.display = "block";
+                }, 800);
+              }, 2500);
+            }, 500);
+          } else {
+            monthsaryInput.value = "";
+            monthsaryInput.placeholder = "Try again baby! 💕";
+            monthsaryInput.style.borderColor = "#FF69B4";
+            setTimeout(() => {
+              monthsaryInput.placeholder = "MM-DD-YY";
+              monthsaryInput.style.borderColor = "#d7a87f";
+            }, 2000);
+          }
+        });
+
+        // Allow Enter key to submit
+        monthsaryInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            monthsarySubmit.click();
+          }
+        });
+
+        // Tab switching
+        const tabs = document.querySelectorAll(".tab");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            const targetTab = this.getAttribute("data-tab");
+
+            // Update active tab
+            tabs.forEach((t) => t.classList.remove("active"));
+            this.classList.add("active");
+
+            // Show corresponding content
+            tabContents.forEach((content) => {
+              content.classList.remove("active");
+              if (content.id === targetTab) {
+                content.classList.add("active");
+              }
+            });
+          });
+        });
+
+        // Expandable love letter
+        const loveLetter = document.getElementById("loveLetter");
+        loveLetter.addEventListener("click", function () {
+          this.classList.toggle("expanded");
+        });
+
+        // Collapsible Game Questions
+        const colorQuestion = document.getElementById("colorQuestion");
+        const colorAnswers = document.getElementById("colorAnswers");
+        const dateQuestion = document.getElementById("dateQuestion");
+        const dateAnswers = document.getElementById("dateAnswers");
+        const monthQuestion = document.getElementById("monthQuestion");
+        const monthAnswers = document.getElementById("monthAnswers");
+
+        colorQuestion.addEventListener("click", function () {
+          colorAnswers.classList.toggle("expanded");
+        });
+
+        dateQuestion.addEventListener("click", function () {
+          dateAnswers.classList.toggle("expanded");
+        });
+
+        monthQuestion.addEventListener("click", function () {
+          monthAnswers.classList.toggle("expanded");
+        });
+
+        // Game Retry Modal Logic
+        const gameRetryModal = document.getElementById("gameRetryModal");
+        const gameRetryYes = document.getElementById("gameRetryYes");
+        const gameRetryNo = document.getElementById("gameRetryNo");
+        let currentWrongQuestion = null;
+
+        function showGameRetryModal(questionId) {
+          currentWrongQuestion = questionId;
+          gameRetryModal.style.display = "flex";
+        }
+
+        gameRetryYes.addEventListener("click", function () {
+          gameRetryModal.style.display = "none";
+          if (currentWrongQuestion === "colorQuestion") {
+            document.getElementById("colorAnswers").classList.add("expanded");
+          } else if (currentWrongQuestion === "dateQuestion") {
+            document.getElementById("dateAnswers").classList.add("expanded");
+          } else if (currentWrongQuestion === "monthQuestion") {
+            document.getElementById("monthAnswers").classList.add("expanded");
+          }
+        });
+
+        gameRetryNo.addEventListener("click", function () {
+          alert("Okay bye 👋");
+          gameRetryModal.style.display = "none";
+        });
+
+        // Game Success Modal Logic
+        const gameSuccessModal = document.getElementById("gameSuccessModal");
+        const gameSuccessBtn = document.getElementById("gameSuccessBtn");
+        const gameSuccessMessage =
+          document.getElementById("gameSuccessMessage");
+
+        gameSuccessBtn.addEventListener("click", function () {
+          gameSuccessModal.style.display = "none";
+        });
+
+        // Game Questions
+        // Popup Modal Functions
+        function showGameResultPopup(popupId, message, isCorrect) {
+          if (isCorrect) {
+            gameSuccessMessage.textContent = message;
+            gameSuccessModal.style.display = "flex";
+          } else {
+            const popup = document.getElementById(popupId);
+            const emoji = popup.querySelector(".result-popup-emoji");
+            const messageEl = popup.querySelector(".result-popup-message");
+
+            emoji.textContent = "🧸😢";
+            messageEl.textContent = message;
+            messageEl.classList.toggle("correct", isCorrect);
+
+            popup.style.display = "block";
+
+            setTimeout(function () {
+              popup.style.display = "none";
+            }, 3000);
+          }
+        }
+
+        // Close popup when clicking
+        document.querySelectorAll(".result-popup").forEach((popup) => {
+          popup.addEventListener("click", function () {
+            this.style.display = "none";
+          });
+        });
+
+        // Question 1: Favorite Color
+        const colorAns1 = document.getElementById("colorAns1");
+        const colorAns2 = document.getElementById("colorAns2");
+        const colorAns3 = document.getElementById("colorAns3");
+        const colorResult = document.getElementById("colorResult");
+
+        colorAns1.addEventListener("click", function () {
+          showGameRetryModal("colorQuestion");
+        });
+
+        colorAns2.addEventListener("click", function () {
+          showGameRetryModal("colorQuestion");
+        });
+
+        colorAns3.addEventListener("click", function () {
+          showGameResultPopup("colorPopup", "Yeeey you love me 💕🎨", true);
+        });
+
+        // Question 2: First Met Date
+        const dateAns1 = document.getElementById("dateAns1");
+        const dateAns2 = document.getElementById("dateAns2");
+        const dateAns3 = document.getElementById("dateAns3");
+        const dateResult = document.getElementById("dateResult");
+
+        dateAns1.addEventListener("click", function () {
+          showGameResultPopup("datePopup", "Yeeey you love me 📅💕", true);
+        });
+
+        dateAns2.addEventListener("click", function () {
+          showGameRetryModal("dateQuestion");
+        });
+
+        dateAns3.addEventListener("click", function () {
+          showGameRetryModal("dateQuestion");
+        });
+
+        // Question 3: Birthday Month
+        const monthAns1 = document.getElementById("monthAns1");
+        const monthAns2 = document.getElementById("monthAns2");
+        const monthAns3 = document.getElementById("monthAns3");
+        const monthResult = document.getElementById("monthResult");
+
+        monthAns1.addEventListener("click", function () {
+          showGameRetryModal("monthQuestion");
+        });
+
+        monthAns2.addEventListener("click", function () {
+          showGameResultPopup("monthPopup", "Yeeey you love me 🎂💕", true);
+        });
+
+        monthAns3.addEventListener("click", function () {
+          showGameRetryModal("monthQuestion");
+        });
+
+        // Add floating decorative elements
+        function addFloatingElements() {
+          for (let i = 0; i < 15; i++) {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "%";
+            heart.style.top = Math.random() * 100 + "%";
+            heart.style.animationDelay = Math.random() * 5 + "s";
+            document.body.appendChild(heart);
+          }
+
+          for (let i = 0; i < 5; i++) {
+            const teddy = document.createElement("div");
+            teddy.classList.add("teddy-bear");
+            teddy.innerHTML = "🧸";
+            teddy.style.left = Math.random() * 100 + "%";
+            teddy.style.top = Math.random() * 100 + "%";
+            teddy.style.animationDelay = Math.random() * 5 + "s";
+            document.body.appendChild(teddy);
+          }
+        }
+
+        addFloatingElements();
+      });
+
+      // Gift Box Functions
+      function openGift() {
+        const giftBoxModal = document.getElementById("giftBoxModal");
+        const giftEmoji = document.querySelector(".gift-box-emoji");
+        
+        // Animate gift opening
+        giftEmoji.style.animation = "popGift 0.8s ease-out forwards";
+        
+        // Create confetti effect with more pieces and variation
+        const confettiEmojis = ["🎉", "💝", "✨", "💕", "🎊"];
+        for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement("div");
+          confetti.classList.add("confetti");
+          confetti.innerHTML = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+          
+          // Random horizontal position
+          confetti.style.left = Math.random() * 100 + "%";
+          confetti.style.top = "50%";
+          
+          // Alternate animation directions for more spread
+          const isLeft = Math.random() > 0.5;
+          const duration = 1.5 + Math.random() * 1;
+          confetti.style.animation = (isLeft ? "confettiLeft" : "confetti") + " " + duration + "s ease-out forwards";
+          confetti.style.animationDelay = Math.random() * 0.3 + "s";
+          
+          document.body.appendChild(confetti);
+          
+          // Remove confetti element after animation
+          setTimeout(() => {
+            confetti.remove();
+          }, (duration + 0.3) * 1000);
+        }
+        
+        // After animation, transition to fun question modal
+        setTimeout(() => {
+          giftBoxModal.style.opacity = "0";
+          setTimeout(() => {
+            giftBoxModal.style.display = "none";
+            const funQuestionModal = document.getElementById("funQuestionModal");
+            funQuestionModal.style.display = "flex";
+            setTimeout(() => {
+              funQuestionModal.style.opacity = "1";
+              startFunTimer();
+            }, 10);
+          }, 500);
+        }, 2000);
+      }
+
+      function closeGiftBox() {
+        const giftBoxModal = document.getElementById("giftBoxModal");
+        giftBoxModal.style.opacity = "0";
+        setTimeout(() => {
+          giftBoxModal.style.display = "none";
+          const loveConfirmationModal = document.getElementById("loveConfirmationModal");
+          loveConfirmationModal.style.display = "flex";
+          setTimeout(() => {
+            loveConfirmationModal.style.opacity = "1";
+          }, 10);
+        }, 500);
+      }
+
+      // Fun Question Timer
+      let funTimerInterval;
+      function startFunTimer() {
+        let timeLeft = 30;
+        const timerEl = document.getElementById("funTimer");
+        
+        funTimerInterval = setInterval(() => {
+          timeLeft--;
+          timerEl.textContent = timeLeft;
+          
+          if (timeLeft <= 0) {
+            clearInterval(funTimerInterval);
+            startFun();
+          }
+        }, 1000);
+      }
+
+      // Start Fun Function
+      function startFun() {
+        clearInterval(funTimerInterval);
+        const funQuestionModal = document.getElementById("funQuestionModal");
+        funQuestionModal.style.opacity = "0";
+        setTimeout(() => {
+          funQuestionModal.style.display = "none";
+          const loveConfirmationModal = document.getElementById("loveConfirmationModal");
+          loveConfirmationModal.style.display = "flex";
+          setTimeout(() => {
+            loveConfirmationModal.style.opacity = "1";
+          }, 10);
+        }, 500);
+      }
+    </script>
+  </body>
+</html>
